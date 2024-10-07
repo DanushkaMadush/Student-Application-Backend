@@ -70,5 +70,21 @@ namespace StudentApplication.Controllers
             dbContext.SaveChanges();
             return Ok(student);
         }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public IActionResult DeleteStudent(Guid id)
+        {
+            var student = dbContext.Students.Find(id);
+
+            if (student is null)
+            {
+                return NotFound();
+            }
+
+            dbContext.Students.Remove(student);
+            dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }
