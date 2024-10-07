@@ -45,5 +45,30 @@ namespace StudentApplication.Controllers
 
             return Ok(studentEntity);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public IActionResult UpdateStudent(Guid id, UpdateStudentDto updateStudentDto)
+        {
+            var student = dbContext.Students.Find(id);
+
+            if (student is null)
+            {
+                return NotFound();
+            }
+
+            student.FirstName = updateStudentDto.FirstName;
+            student.LastName = updateStudentDto.LastName;
+            student.StudentEmail = updateStudentDto.StudentEmail;
+            student.Phone = updateStudentDto.Phone;
+            student.Address = updateStudentDto.Address;
+            student.Country = updateStudentDto.Country;
+            student.Institute = updateStudentDto.Institute;
+            student.Intake = updateStudentDto.Intake;
+            student.CourseTitle = updateStudentDto.CourseTitle;
+
+            dbContext.SaveChanges();
+            return Ok(student);
+        }
     }
 }
