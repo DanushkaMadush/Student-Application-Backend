@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudentApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,10 @@ namespace StudentApplication.Migrations
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Institute = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Intake = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CourseTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CourseTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    License = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Approval = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpiryDate = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

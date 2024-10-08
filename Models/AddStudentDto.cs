@@ -11,5 +11,6 @@
         public required string Institute { get; set; }
         public required string Intake { get; set; }
         public required string CourseTitle { get; set; }
+
     }
 }

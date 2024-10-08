@@ -66,6 +66,9 @@ namespace StudentApplication.Controllers
             student.Institute = updateStudentDto.Institute;
             student.Intake = updateStudentDto.Intake;
             student.CourseTitle = updateStudentDto.CourseTitle;
+            student.License = updateStudentDto.License;
+            student.Approval = updateStudentDto.Approval;
+            student.ExpiryDate = updateStudentDto.ExpiryDate;
 
             dbContext.SaveChanges();
             return Ok(student);

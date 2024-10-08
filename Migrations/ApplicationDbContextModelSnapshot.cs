@@ -31,11 +31,19 @@ namespace StudentApplication.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Approval")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CourseTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpiryDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -52,6 +60,10 @@ namespace StudentApplication.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("License")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
