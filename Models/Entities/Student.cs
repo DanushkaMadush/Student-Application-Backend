@@ -12,8 +12,9 @@
         public required string Institute { get; set; }
         public required string Intake { get; set; }
         public required string CourseTitle { get; set; }
-        public string License { get; set; } = "Pending"; 
-        public string Approval { get; set; } = "Not Approved"; 
+        public string License { get; set; } = "Inactive"; 
+        public string Approval { get; set; } = "Pending"; 
         public string ExpiryDate { get; set; } = "N/A";
+        public required string FilePath { get; set; }
     }
 }

@@ -15,6 +15,11 @@ namespace StudentApplication.Controllers
         public StudentController(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFiles");
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
         }
 
         [HttpGet]
@@ -25,8 +30,20 @@ namespace StudentApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStudent(AddStudentDto addStudentDto)
+        public async Task<IActionResult> AddStudent([FromForm] AddStudentDto addStudentDto)
         {
+            if (addStudentDto.File == null || addStudentDto.File.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            // Save the file
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFiles", addStudentDto.File.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await addStudentDto.File.CopyToAsync(stream);
+            }
+
             var studentEntity = new Student()
             {
                 FirstName = addStudentDto.FirstName,
@@ -38,6 +55,7 @@ namespace StudentApplication.Controllers
                 Institute = addStudentDto.Institute,
                 Intake = addStudentDto.Intake,
                 CourseTitle = addStudentDto.CourseTitle,
+                FilePath = filePath // Store the file path in the student entity
             };
 
             dbContext.Students.Add(studentEntity);
