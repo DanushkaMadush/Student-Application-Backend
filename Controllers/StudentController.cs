@@ -29,6 +29,21 @@ namespace StudentApplication.Controllers
             return Ok(allStudents);
         }
 
+        [HttpGet("download/{fileName}")]
+        public IActionResult DownloadFile(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFiles", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("File not found.");
+            }
+
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+            return File(bytes, "application/octet-stream", fileName);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromForm] AddStudentDto addStudentDto)
         {
@@ -55,7 +70,7 @@ namespace StudentApplication.Controllers
                 Institute = addStudentDto.Institute,
                 Intake = addStudentDto.Intake,
                 CourseTitle = addStudentDto.CourseTitle,
-                FilePath = filePath // Store the file path in the student entity
+                FilePath = filePath 
             };
 
             dbContext.Students.Add(studentEntity);
