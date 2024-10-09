@@ -47,6 +47,12 @@ namespace StudentApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromForm] AddStudentDto addStudentDto)
         {
+            var existingStudent = dbContext.Students.FirstOrDefault(s => s.StudentEmail == addStudentDto.StudentEmail);
+            if (existingStudent != null)
+            {
+                return BadRequest("Email already exists.");
+            }
+
             if (addStudentDto.File == null || addStudentDto.File.Length == 0)
             {
                 return BadRequest("No file uploaded.");
