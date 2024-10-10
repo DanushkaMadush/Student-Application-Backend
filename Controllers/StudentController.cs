@@ -51,6 +51,38 @@ namespace StudentApplication.Controllers
             return Ok(students);
         }
 
+        [HttpGet("filterStudent")]
+        public async Task<IActionResult> FilterStudents(string approval = null, string country = null, string institute = null, string intake = null)
+        {
+            var students = await dbContext.Students.ToListAsync();
+
+            var approvalLower = approval?.ToLower();
+            var countryLower = country?.ToLower();
+            var instituteLower = institute?.ToLower();
+            var intakeLower = intake?.ToLower();
+
+            if (!string.IsNullOrEmpty(approvalLower))
+            {
+                students = students.Where(s => s.Approval?.ToLower() == approvalLower).ToList();
+            }
+            if (!string.IsNullOrEmpty(countryLower))
+            {
+                students = students.Where(s => s.Country?.ToLower() == countryLower).ToList();
+            }
+            if (!string.IsNullOrEmpty(instituteLower))
+            {
+                students = students.Where(s => s.Institute?.ToLower() == instituteLower).ToList();
+            }
+            if (!string.IsNullOrEmpty(intakeLower))
+            {
+                students = students.Where(s => s.Intake?.ToLower() == intakeLower).ToList();
+            }
+
+            return Ok(students);
+        }
+
+
+
         [HttpGet("download/{fileName}")]
         public IActionResult DownloadFile(string fileName)
         {
