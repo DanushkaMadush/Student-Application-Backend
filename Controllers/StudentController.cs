@@ -37,15 +37,15 @@ namespace StudentApplication.Controllers
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                students = students.Where(s => s.FirstName.Contains(searchTerm) ||
-                                                s.LastName.Contains(searchTerm) ||
-                                                s.StudentEmail.Contains(searchTerm) ||
-                                                s.Phone.Contains(searchTerm) ||
-                                                s.Address.Contains(searchTerm) ||
-                                                s.Country.Contains(searchTerm) ||
-                                                s.Institute.Contains(searchTerm) ||
-                                                s.Intake.Contains(searchTerm) ||
-                                                s.CourseTitle.Contains(searchTerm)).ToList();
+                students = students.Where(s => s.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.LastName.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.StudentEmail.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.Phone.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.Country.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.Address.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.Institute.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.Intake.ToLower().Contains(searchTerm.ToLower()) ||
+                                                s.CourseTitle.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             return Ok(students);
