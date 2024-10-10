@@ -14,6 +14,7 @@
         public string? License { get; set; }
         public string? Approval { get; set; }
         public string? ExpiryDate { get; set; }
+
     }
 }
 

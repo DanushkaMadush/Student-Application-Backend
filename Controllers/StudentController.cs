@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentApplication.Data;
 using StudentApplication.Models;
 using StudentApplication.Models.Entities;
@@ -22,11 +23,32 @@ namespace StudentApplication.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetAllStudents() 
         {
             var allStudents = dbContext.Students.ToList();
             return Ok(allStudents);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetSearchStudents(string searchTerm = null)
+        {
+            var students = await dbContext.Students.ToListAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                students = students.Where(s => s.FirstName.Contains(searchTerm) ||
+                                                s.LastName.Contains(searchTerm) ||
+                                                s.StudentEmail.Contains(searchTerm) ||
+                                                s.Phone.Contains(searchTerm) ||
+                                                s.Address.Contains(searchTerm) ||
+                                                s.Country.Contains(searchTerm) ||
+                                                s.Institute.Contains(searchTerm) ||
+                                                s.Intake.Contains(searchTerm) ||
+                                                s.CourseTitle.Contains(searchTerm)).ToList();
+            }
+
+            return Ok(students);
         }
 
         [HttpGet("download/{fileName}")]
