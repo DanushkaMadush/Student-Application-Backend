@@ -24,7 +24,7 @@ namespace StudentApplication.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetAllStudents() 
+        public async Task<IActionResult> GetAllStudents() 
         {
             var allStudents = dbContext.Students.ToList();
             return Ok(allStudents);
